@@ -67,7 +67,7 @@ function handleChange(user) {
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
-  tableData.data.push({
+  tableData.data.unshift({
     ...form,
     trigger_at: moment()
   })

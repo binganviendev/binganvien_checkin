@@ -26,7 +26,7 @@
           format="DD/MM/YYYY hh:mm:ss" />
       </el-form-item>
 
-      <el-form-item label="Activity form">
+      <el-form-item label="Giờ hẹn">
         <el-input v-model="form.content" type="textarea" />
       </el-form-item>
     </el-form>
