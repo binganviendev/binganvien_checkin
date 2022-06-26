@@ -12,9 +12,16 @@ var pusher = new Pusher({
   cluster,
 });
 
+console.log('in');
 module.exports = (req, res) => {
+  console.log(1);
   const channel = 'binganvien';
+  console.log(2);
   const event = 'broadcast';
+  console.log(3);
   pusher.trigger(channel, event, { message: JSON.stringify(req.body) });
+  console.log(4);
   res.status(200).end('sent event successfully');
+  console.log(5);
 }
+console.log('out');
