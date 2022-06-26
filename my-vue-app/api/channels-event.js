@@ -1,11 +1,10 @@
 const Channels = require('pusher');
 
-const {
-  APP_ID: appId,
-  KEY: key,
-  SECRET: secret,
-  CLUSTER: cluster,
-} = process.env;
+const appId = "1428573";
+const key = "ded5041fb98b0734a8cf";
+const secret = "98faa35b224a20255be3";
+const cluster = "ap1";
+
 
 const channels = new Channels({
   appId,
@@ -17,7 +16,6 @@ const channels = new Channels({
 module.exports = (req, res) => {
   const data = req.body;
 
-  res.status(200).end('sent event successfully');
   const channel = 'binganvien';
   const event = 'broadcast';
   channels.trigger(channel, event, data, () => {
