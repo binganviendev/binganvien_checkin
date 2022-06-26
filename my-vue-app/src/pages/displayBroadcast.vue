@@ -38,10 +38,15 @@ import Pusher from 'pusher-js';
 
 Pusher.logToConsole = true;
 const pusherKey = 'ded5041fb98b0734a8cf';
-const channel = 'binganvien';
+const channel = 'private-binganvien';
 const event = 'broadcast';
 
-var pusher = new Pusher(pusherKey, { cluster: 'ap1' });
+var pusher = new Pusher(pusherKey, {
+  cluster: 'ap1',
+  channelAuthorization: {
+    endpoint: "api/pusher-auth",
+  }
+});
 pusher.subscribe(channel).bind(event, function (data) {
   handleChange(JSON.parse(data.message));
 });
