@@ -37,7 +37,20 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import { fetchUsers } from '@/plugins/spreadsheet';
 import moment from "moment";
-import https from "https";
+import Pusher from 'pusher-js';
+
+Pusher.logToConsole = true;
+const pusherKey = 'ded5041fb98b0734a8cf';
+const channel = 'private-binganvien';
+const event = 'broadcast';
+
+var pusher = new Pusher(pusherKey, {
+  cluster: 'ap1',
+  channelAuthorization: {
+    endpoint: "api/pusher-auth",
+  }
+});
+const myChannel = pusher.subscribe(channel);
 
 // do not use same name with ref
 const form = reactive({
@@ -63,16 +76,17 @@ function handleChange(user) {
 }
 
 async function pushData(data) {
-  const res = await fetch('/api/channels-event', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) {
-    console.error('failed to push data');
-  }
+  myChannel.trigger(event, JSON.stringify(data));
+  // const res = await fetch('/api/channels-event', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(data),
+  // });
+  // if (!res.ok) {
+  //   console.error('failed to push data');
+  // }
 }
 
 onBeforeMount(async () => {
