@@ -48,7 +48,7 @@ var pusher = new Pusher(pusherKey, {
   }
 });
 pusher.subscribe(channel).bind(event, function (data) {
-  handleChange(JSON.parse(data.message));
+  handleChange(JSON.parse(data));
 });
 
 // Vue application
