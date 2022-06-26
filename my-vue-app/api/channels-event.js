@@ -17,6 +17,7 @@ const channels = new Channels({
 module.exports = (req, res) => {
   const data = req.body;
 
+  res.status(200).end('sent event successfully');
   const channel = 'binganvien';
   const event = 'broadcast';
   channels.trigger(channel, event, data, () => {
