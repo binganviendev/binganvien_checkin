@@ -21,6 +21,6 @@ module.exports = (req, res) => {
     id: + new Date(),
     name: + new Date()
   }; // Replace this with code to retrieve the actual user id
-  const authResponse = pusher.authenticateUser(socketId, channel, user);
+  const authResponse = pusher.authorizeChannel(socketId, channel, user);
   res.send(authResponse);
 }
