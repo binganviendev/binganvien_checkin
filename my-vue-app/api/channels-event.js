@@ -18,7 +18,7 @@ module.exports = (req, res) => {
   const channel = 'binganvien';
   console.log(2);
   const event = 'broadcast';
-  console.log(3);
+  console.log(3, req.body);
   pusher.trigger(channel, event, { message: JSON.stringify(req.body) });
   console.log(4);
   res.status(200).end('sent event successfully');
