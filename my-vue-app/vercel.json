@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "env": {
+    "APP_ID": "1428573",
+    "KEY": "ded5041fb98b0734a8cf",
+    "SECRET": "98faa35b224a20255be3",
+    "CLUSTER": "ap1"
+  }
+}
