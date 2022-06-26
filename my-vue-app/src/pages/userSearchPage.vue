@@ -58,6 +58,20 @@ function handleChange(user) {
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
+  pushData(form);
+}
+
+async function pushData(data) {
+  const res = await fetch('/api/channels-event', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    console.error('failed to push data');
+  }
 }
 
 onBeforeMount(async () => {
