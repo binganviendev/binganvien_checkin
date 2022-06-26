@@ -39,7 +39,7 @@ import Pusher from 'pusher-js';
 Pusher.logToConsole = true;
 const pusherKey = 'ded5041fb98b0734a8cf';
 const channel = 'private-binganvien';
-const event = 'broadcast';
+const event = 'client-broadcast';
 
 var pusher = new Pusher(pusherKey, {
   cluster: 'ap1',
