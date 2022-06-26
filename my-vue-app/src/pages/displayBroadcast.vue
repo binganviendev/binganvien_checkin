@@ -43,6 +43,7 @@ const event = 'broadcast';
 
 var pusher = new Pusher(pusherKey, { cluster: 'ap1' });
 pusher.subscribe(channel).bind(event, function (data) {
+  console.log(data);
   handleChange(JSON.parse(data));
 });
 
