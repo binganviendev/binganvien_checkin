@@ -68,7 +68,7 @@ const form = reactive({
 const isShowData = reactive({
   value: false
 });
-let myInterval = setInterval(function () { isShowData.value = false }, 5000);
+let myInterval = setInterval(function () { isShowData.value = false }, 10000);
 
 function handleChange(user) {
   form.id = user.id;
@@ -81,7 +81,7 @@ function handleChange(user) {
 
   // Reset interval
   clearInterval(myInterval);
-  myInterval = setInterval(function () { isShowData.value = false }, 5000);
+  myInterval = setInterval(function () { isShowData.value = false }, 10000);
 }
 
 </script>
@@ -114,7 +114,32 @@ function handleChange(user) {
 h3 {
   font-size: 6rem;
   font-weight: bold;
+  animation: fadein 1.5s;
+  -webkit-animation: fadein 2s;
 }
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 
 .middle-align {
   display: flex;
