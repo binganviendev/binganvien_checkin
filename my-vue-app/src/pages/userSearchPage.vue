@@ -47,6 +47,7 @@ const form = reactive({
   dob: '',
   content: '',
   meet_at: '',
+  image: '',
 })
 const selectValue = ref('');
 

@@ -56,6 +56,7 @@ const form = reactive({
   dob: '',
   content: '',
   meet_at: '',
+  image: '',
 })
 
 function handleChange(user) {
