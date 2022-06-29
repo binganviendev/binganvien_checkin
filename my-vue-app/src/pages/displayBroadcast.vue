@@ -1,10 +1,14 @@
 <template>
   <div class="overflow-hidden w-100 h-100">
-    <keep-alive>
-    <video autoplay muted loop id="bgg-video" :class="{ 'left-0': !isShowData.value }">
-      <source v-if="isShowData.value" src="@/assets/tv_bg.mp4" type="video/mp4">
-      <source v-else src="@/assets/free_play.mp4" type="video/mp4">
-    </video>
+    <keep-alive v-if="isShowData.value">
+      <video autoplay muted loop id="bgg-video">
+        <source src="@/assets/tv_bg.mp4" type="video/mp4">
+      </video>
+    </keep-alive>
+    <keep-alive v-else>
+      <video autoplay muted loop id="bgg-video" class="left-0">
+        <source src="@/assets/free_play.mp4" type="video/mp4">
+      </video>
     </keep-alive>
 
     <div class="position-absolute bgg-container" v-if="isShowData.value">
@@ -61,8 +65,10 @@ const form = reactive({
   meet_at: '',
   image: '',
 })
-const isShowData = ref(false);
-let myInterval = setInterval(function (){ isShowData.value = false }, 5000);
+const isShowData = reactive({
+  value: false
+});
+let myInterval = setInterval(function () { isShowData.value = false }, 5000);
 
 function handleChange(user) {
   form.id = user.id;
@@ -75,7 +81,7 @@ function handleChange(user) {
 
   // Reset interval
   clearInterval(myInterval);
-  myInterval = setInterval(function (){ isShowData.value = false }, 5000);
+  myInterval = setInterval(function () { isShowData.value = false }, 5000);
 }
 
 </script>
@@ -119,6 +125,7 @@ h3 {
 .w-200px {
   width: 150px;
 }
+
 .left-0 {
   left: 0 !important;
 }
