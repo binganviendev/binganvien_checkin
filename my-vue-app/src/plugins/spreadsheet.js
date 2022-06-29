@@ -15,15 +15,17 @@ const fetchUsers = async () => {
   // Prepare data
   const users = [];
   for (let user of jsonData.values) {
-    let tmp = {
-      'id': user[0],
-      'name': user[1],
-      'dob': moment(user[2], 'DD/MM/YYYY'),
-      'content': user[3],
-      'meet_at': moment(user[4], 'DD/MM/YYYY hh:mm:ss'),
-      'image': user[5]
+    if (user.length > 0) {
+      let tmp = {
+        'id': user[0],
+        'name': user[1],
+        'dob': moment(user[2], 'DD/MM/YYYY'),
+        'content': user[3],
+        'meet_at': moment(user[4], 'DD/MM/YYYY hh:mm:ss'),
+        'image': user[5]
+      }
+      users.push(tmp);
     }
-    users.push(tmp);
   }
   return users;
 }
