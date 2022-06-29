@@ -1,13 +1,13 @@
 <template>
   <div class="overflow-hidden w-100 h-100">
     <keep-alive>
-    <video autoplay muted loop id="bgg-video" :class="{ 'left-0': !isShowData }">
-      <source v-if="isShowData" src="@/assets/tv_bg.mp4" type="video/mp4">
+    <video autoplay muted loop id="bgg-video" :class="{ 'left-0': !isShowData.value }">
+      <source v-if="isShowData.value" src="@/assets/tv_bg.mp4" type="video/mp4">
       <source v-else src="@/assets/free_play.mp4" type="video/mp4">
     </video>
     </keep-alive>
 
-    <div class="position-absolute bgg-container" v-if="isShowData">
+    <div class="position-absolute bgg-container" v-if="isShowData.value">
       <div class="row w-100 h-100 p-3">
         <div class="col-6 h-100 pt-5">
           <img alt="logo" class="w-200px mt-5 py-5 app-logo" src="@/assets/logo.png" />
