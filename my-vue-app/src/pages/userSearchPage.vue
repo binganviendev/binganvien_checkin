@@ -7,7 +7,7 @@
       <img alt="logo" class="w-100px pt-5 app-logo" src="@/assets/logo.png" />
       <div class="pt-4 text-center">
         <el-select class="w-75" id="name-input" v-model="form.name" @blur="handle"
-          placeholder="Xin mời Quý khách nhập họ và tên" @change="handleChange" value-key="name" remote reserve-keyword
+          placeholder="Xin mời Quý khách nhập họ và tên" @change="pushData" value-key="name" remote reserve-keyword
           :remote-method="remoteMethod" filterable>
           <el-option v-for="item in options" :key="item.id"
             :label="`${item.name} - ${moment(item.dob).format('DD/MM/YYYY')}`" :value="item" />
