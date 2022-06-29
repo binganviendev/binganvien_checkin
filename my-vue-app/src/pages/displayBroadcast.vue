@@ -13,10 +13,10 @@
 
           <h3>Ngày sinh</h3>
           <h3 class="text-content"></h3>
-          <h3 class="text-content mb-5 pb-5">{{ form.dob }}</h3>
+          <h3 class="text-content mb-5 pb-5">{{ moment(form.dob).format('DD/MM/YYYY') }}</h3>
 
           <h3 class="pt-5 mt-5">Lịch hẹn</h3>
-          <h3 class="text-content">{{ form.meet_at }}</h3>
+          <h3 class="text-content">{{ moment(form.meet_at).format('DD/MM/YYYY hh:mm') }}</h3>
 
           <h3>Nội dung</h3>
           <h3 class="text-content">{{ form.content }}</h3>

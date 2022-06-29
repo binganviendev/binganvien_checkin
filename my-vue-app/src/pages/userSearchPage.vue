@@ -71,6 +71,7 @@ function handleChange(user) {
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
+  form.image = user.image;
   pushData(form);
 }
 
