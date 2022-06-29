@@ -59,6 +59,7 @@ const form = reactive({
 })
 
 function handleChange(user) {
+  console.log('user', user)
   form.id = user.id;
   form.name = user.name;
   form.dob = user.dob;
