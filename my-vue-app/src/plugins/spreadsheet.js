@@ -21,6 +21,7 @@ const fetchUsers = async () => {
       'dob': moment(user[2], 'DD/MM/YYYY'),
       'content': user[3],
       'meet_at': moment(user[4], 'DD/MM/YYYY hh:mm:ss'),
+      'image': user[5]
     }
     users.push(tmp);
   }

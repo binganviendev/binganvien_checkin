@@ -1,13 +1,13 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-</script>
-
 <template>
-  <img alt="Vue logo" class="w-100px pt-0" src="./assets/logo.png" />
   <router-view />
 </template>
+<script setup>
+import { ref } from 'vue';
 
+const year = ref(2022);
+year.value = (new Date()).getFullYear();
+
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -22,5 +22,20 @@
 }
 .w-full {
   width: 100%;
+}
+* {
+  font-family: Futura !important;
+}
+.footer-rights {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 1rem;
+  font-size: 0.6rem;
+  color: #fff;
+}
+@font-face {
+  font-family: Futara;
+  src: url("@/assets/fonts/Futura Light font.ttf");
 }
 </style>

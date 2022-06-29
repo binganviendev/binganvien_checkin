@@ -1,33 +1,31 @@
 <template>
-  <div class="container p-3">
-    <h2 class="mt-5">Thông tin tra cứu</h2>
-    <el-form :model="form" label-width="120px" label-position="left" disabled=true>
-      <el-form-item label="Họ và tên">
-        <el-input v-model="form.name" />
-      </el-form-item>
+  <div class="overflow-hidden w-100 h-100">
+    <video autoplay muted loop id="bgg-video">
+      <source src="@/assets/tv_bg.mp4" type="video/mp4">
+    </video>
 
-      <el-form-item label="Ngày Sinh">
-        <el-date-picker v-model="form.dob" type="date" placeholder="Pick a date" style="width: 100%"
-          format="DD/MM/YYYY" />
-      </el-form-item>
+    <div class="position-absolute bgg-container">
+      <div class="row w-100 h-100 p-3">
+        <div class="col-6 h-100 pt-5">
+          <img alt="logo" class="w-200px mt-5 py-5 app-logo" src="@/assets/logo.png" />
+          <h3>Họ và tên</h3>
+          <h3 class="text-content">{{ form.name }}</h3>
 
-      <el-form-item label="Thời điểm hẹn">
-        <el-date-picker v-model="form.meet_at" type="datetime" placeholder="Pick a date" style="width: 100%"
-          format="DD/MM/YYYY hh:mm:ss" />
-      </el-form-item>
+          <h3>Ngày sinh</h3>
+          <h3 class="text-content"></h3>
+          <h3 class="text-content mb-5 pb-5">{{ form.dob }}</h3>
 
-      <el-form-item label="Nội dung">
-        <el-input v-model="form.content" type="textarea" />
-      </el-form-item>
+          <h3 class="pt-5 mt-5">Lịch hẹn</h3>
+          <h3 class="text-content">{{ form.meet_at }}</h3>
 
-    </el-form>
-    <h2 class="mt-5">Lịch sử tra cứu</h2>
-    <el-table :data="tableData.data" border style="width: 100%">
-      <el-table-column prop="name" label="Tên" width="180" />
-      <el-table-column prop="dob" label="Ngày sinh" width="180" />
-      <el-table-column prop="meet_at" label="Giờ hẹn" />
-      <el-table-column prop="trigger_at" label="Thời điểm tra cứu" />
-    </el-table>
+          <h3>Nội dung</h3>
+          <h3 class="text-content">{{ form.content }}</h3>
+        </div>
+        <div class="col-6 h-100 middle-align">
+          <img class="w-100" :src="form.image" alt="">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,7 +50,6 @@ pusher.subscribe(channel).bind(event, function (data) {
 });
 
 // Vue application
-
 const form = reactive({
   id: '',
   name: '',
@@ -67,13 +64,48 @@ function handleChange(user) {
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
-  tableData.data.unshift({
-    ...form,
-    trigger_at: moment()
-  })
+  form.image = user.image.replace('open', 'uc');
 }
 
-const tableData = reactive({
-  data: []
-})
 </script>
+<style>
+#bgg-video {
+  position: fixed;
+  right: 9rem;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+
+.bgg-container {
+  padding: 0;
+  margin: 0;
+
+  left: 30%;
+  height: 100%;
+  width: calc(100vw - 30%);
+  translate: translate(-50%);
+  max-width: calc(100vw - 30rem);
+}
+
+.text-content {
+  color: rgb(205, 172, 114) !important;
+  font-style: italic
+}
+
+h3 {
+  font-size: 6rem;
+  font-weight: bold;
+}
+
+.middle-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.w-200px {
+  width: 150px;
+}
+</style>
