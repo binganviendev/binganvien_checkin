@@ -1,10 +1,13 @@
 <template>
   <div class="overflow-hidden w-100 h-100">
-    <video autoplay muted loop id="bgg-video">
-      <source src="@/assets/tv_bg.mp4" type="video/mp4">
+    <keep-alive>
+    <video autoplay muted loop id="bgg-video" :class="{ 'left-0': !isShowData }">
+      <source v-if="isShowData" src="@/assets/tv_bg.mp4" type="video/mp4">
+      <source v-else src="@/assets/free_play.mp4" type="video/mp4">
     </video>
+    </keep-alive>
 
-    <div class="position-absolute bgg-container">
+    <div class="position-absolute bgg-container" v-if="isShowData">
       <div class="row w-100 h-100 p-3">
         <div class="col-6 h-100 pt-5">
           <img alt="logo" class="w-200px mt-5 py-5 app-logo" src="@/assets/logo.png" />
@@ -58,15 +61,21 @@ const form = reactive({
   meet_at: '',
   image: '',
 })
+const isShowData = ref(false);
+let myInterval = setInterval(function (){ isShowData.value = false }, 5000);
 
 function handleChange(user) {
-  console.log('user', user)
   form.id = user.id;
   form.name = user.name;
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
   form.image = user.image.replace('open', 'uc');
+  isShowData.value = true;
+
+  // Reset interval
+  clearInterval(myInterval);
+  myInterval = setInterval(function (){ isShowData.value = false }, 5000);
 }
 
 </script>
@@ -109,5 +118,8 @@ h3 {
 
 .w-200px {
   width: 150px;
+}
+.left-0 {
+  left: 0 !important;
 }
 </style>
