@@ -67,13 +67,13 @@ const remoteMethod = (query) => {
 }
 
 function handleChange(user) {
-  form.id = user.id;
-  form.name = user.name;
-  form.dob = user.dob;
-  form.content = user.content;
-  form.meet_at = user.meet_at;
-  form.image = user.image;
-  pushData(form);
+  // form.id = user.id;
+  // form.name = user.name;
+  // form.dob = user.dob;
+  // form.content = user.content;
+  // form.meet_at = user.meet_at;
+  // form.image = user.image;
+  pushData(user);
 }
 
 async function pushData(data) {
