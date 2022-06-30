@@ -73,7 +73,7 @@ const isShowData = reactive({
 });
 let myInterval = setInterval(function () { isShowData.value = false }, 10000);
 
-function handlechange(user) {
+function handleChange(user) {
   form.id = user.id;
   form.name = user.name;
   form.dob = user.dob;
