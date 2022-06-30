@@ -6,30 +6,32 @@
       </video>
     </keep-alive>
     <keep-alive v-else>
-      <video autoplay muted loop id="bgg-video" class="left-0">
-        <source src="@/assets/free_play.mp4" type="video/mp4">
-      </video>
+      <div>
+        <video autoplay muted loop id="bgg-video" class="left-0">
+          <source src="@/assets/free_play.mp4" type="video/mp4">
+        </video>
+        <QRCode class="qrcode position-absolute" />
+      </div>
     </keep-alive>
 
-    <div class="position-absolute bgg-container" v-if="isShowData.value">
+    <div class="position-absolute bgg-container overflow-hidden" v-if="isShowData.value">
       <div class="row w-100 h-100 p-3">
-        <div class="col-6 h-100 pt-5">
-          <img alt="logo" class="w-200px mt-5 py-5 app-logo" src="@/assets/logo.png" />
-          <h3>Họ và tên</h3>
-          <h3 class="text-content">{{ form.name }}</h3>
+        <div class="col-6 h-100 ">
+          <img alt="logo" class="_1st w-200px mt-5 py-5 app-logo" src="@/assets/logo.png" />
+          <h3 class="_1st">Họ và tên</h3>
+          <h3 class="_1st text-content">{{ form.name }}</h3>
 
-          <h3>Ngày sinh</h3>
-          <h3 class="text-content"></h3>
-          <h3 class="text-content mb-5 pb-5">{{ moment(form.dob).format('DD/MM/YYYY') }}</h3>
+          <h3 class="_2nd">Ngày sinh</h3>
+          <h3 class="_2nd text-content mb-5 pb-5">{{ moment(form.dob).format('DD/MM/YYYY') }}</h3>
 
-          <h3 class="pt-5 mt-5">Lịch hẹn</h3>
-          <h3 class="text-content">{{ moment(form.meet_at).format('DD/MM/YYYY hh:mm') }}</h3>
+          <h3 class="_3rd pt-5 mt-5">Lịch hẹn</h3>
+          <h3 class="_3rd text-content">{{ moment(form.meet_at).format('DD/MM/YYYY hh:mm') }}</h3>
 
-          <h3>Nội dung</h3>
-          <h3 class="text-content">{{ form.content }}</h3>
+          <h3 class="_4th">Nội dung</h3>
+          <h3 class="_4th text-content">{{ form.content }}</h3>
         </div>
         <div class="col-6 h-100 middle-align">
-          <img class="w-100" :src="form.image" alt="">
+          <img class="_5th w-100 image-transition" src="https://scontent.fhan14-1.fna.fbcdn.net/v/t1.15752-9/290651021_608523380692781_6855573323392739405_n.png?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=K6qdXBv84OYAX8N-byN&_nc_ht=scontent.fhan14-1.fna&oh=03_AVJzBNTdYL0ubB4lKy3J90oQ7x-Zb2ELxnIDDT8gr7w_9w&oe=62E2F179" alt="">
         </div>
       </div>
     </div>
@@ -40,6 +42,7 @@
 import moment from "moment";
 import { ref, reactive } from 'vue'
 import Pusher from 'pusher-js';
+import QRCode from '@/assets/qr-code.svg';
 
 Pusher.logToConsole = true;
 const pusherKey = 'ded5041fb98b0734a8cf';
@@ -70,7 +73,7 @@ const isShowData = reactive({
 });
 let myInterval = setInterval(function () { isShowData.value = false }, 10000);
 
-function handleChange(user) {
+function handlechange(user) {
   form.id = user.id;
   form.name = user.name;
   form.dob = user.dob;
@@ -112,25 +115,57 @@ function handleChange(user) {
 }
 
 h3 {
-  font-size: 6rem;
+  font-size: 3rem;
   font-weight: bold;
-  animation: fadein 1.5s;
-  -webkit-animation: fadein 2s;
+  position: relative;
+  opacity: 0;
+  animation-fill-mode: forwards !important;
 }
+
+.image-transition {
+  opacity: 0;
+  animation-fill-mode: forwards !important;
+}
+
+
+._1st {
+  animation: fadein 2s;
+}
+
+._2nd {
+  animation: fadein 2s;
+  animation-delay: 1s;
+}
+
+._3rd {
+  animation: fadein 2s;
+  animation-delay: 2s;
+}
+
+._4th {
+  animation: fadein 2s;
+  animation-delay: 3s;
+}
+
+._5th {
+  animation: fadeinImage 2s;
+  animation-delay: 4s;
+}
+
 
 @keyframes fadein {
   from {
     opacity: 0;
+    top: 500px;
   }
 
   to {
     opacity: 1;
+    top: 0;
   }
 }
 
-@-webkit-keyframes fadein {
-
-  /* Safari and Chrome */
+@keyframes fadeinImage {
   from {
     opacity: 0;
   }
@@ -139,7 +174,6 @@ h3 {
     opacity: 1;
   }
 }
-
 
 .middle-align {
   display: flex;
@@ -153,5 +187,14 @@ h3 {
 
 .left-0 {
   left: 0 !important;
+}
+
+.qrcode {
+  margin: auto;
+  width: 300px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 </style>
