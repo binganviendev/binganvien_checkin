@@ -31,7 +31,7 @@
           <h3 class="_4th text-content">{{ form.content }}</h3>
         </div>
         <div class="col-6 h-100 middle-align">
-          <img class="_5th w-100 image-transition" src="https://scontent.fhan14-1.fna.fbcdn.net/v/t1.15752-9/290651021_608523380692781_6855573323392739405_n.png?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=K6qdXBv84OYAX8N-byN&_nc_ht=scontent.fhan14-1.fna&oh=03_AVJzBNTdYL0ubB4lKy3J90oQ7x-Zb2ELxnIDDT8gr7w_9w&oe=62E2F179" alt="">
+          <img class="_5th w-100 image-transition" :src="form.image" alt="">
         </div>
       </div>
     </div>
