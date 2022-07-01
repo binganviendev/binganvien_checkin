@@ -25,6 +25,15 @@ const fetchUsers = async () => {
         'image': user[5]
       }
       users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
+      users.push(tmp);
     }
   }
   return users;

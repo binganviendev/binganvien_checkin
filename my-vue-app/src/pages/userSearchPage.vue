@@ -1,17 +1,32 @@
 <template>
   <div>
-    <video autoplay muted loop id="bg-video">
-      <source src="@/assets/bg.webm" type="video/mp4">
+    <video id="bg-video" autoplay loop muted playsinline>
+      <source src="@/assets/video.mp4" type="video/mp4">
     </video>
     <div class="position-absolute w-100">
-      <img alt="logo" class="w-100px pt-5 app-logo" src="@/assets/logo.png" />
-      <div class="pt-4 text-center">
-        <el-select class="w-75" id="name-input" v-model="form.name" @blur="handle"
-          placeholder="Xin mời Quý khách nhập họ và tên" @change="pushData" value-key="name" remote reserve-keyword
-          :remote-method="remoteMethod" filterable>
-          <el-option v-for="item in options" :key="item.id"
-            :label="`${item.name} - ${moment(item.dob).format('DD/MM/YYYY')}`" :value="item" />
-        </el-select>
+      <img alt="logo" class="_1st w-100px pt-4 app-logo" src="@/assets/logo.png" />
+      <div class="pt-2 text-center position-relative ">
+        <input type="text" name="city" :value="inputValue" @input="remoteMethod" id="name-input" class="_2nd w-75"
+          :placeholder="placeholder" />
+
+        <div class="fill-ele" v-if="options.length">&nbsp;</div>
+        <div class="dropdown" v-if="options.length">
+          <div
+            @click="pushData(item)"
+            class="row-user"
+            v-for="item in options"
+            :key="item.id"
+          >
+            {{ item.name }} - {{ moment(item.dob).format('DD/MM/YYYY') }}
+          </div>
+        </div>
+
+        <!-- <el-select class="w-75" id="name-input" v-model="form.name" @blur="handle" -->
+        <!--   placeholder="Xin mời Quý khách nhập họ và tên" @change="pushData" value-key="name" remote reserve-keyword -->
+        <!--   :remote-method="remoteMethod" filterable> -->
+        <!--   <el-option v-for="item in options" :key="item.id" -->
+        <!--     :label="`${item.name} - ${moment(item.dob).format('DD/MM/YYYY')}`" :value="item" /> -->
+        <!-- </el-select> -->
 
       </div>
     </div>
@@ -49,14 +64,16 @@ const form = reactive({
   meet_at: '',
   image: '',
 })
-const selectValue = ref('');
-
-const users = reactive({
+const placeholder = ref("Xin mời Quý khách nhập họ và tên"); const users = reactive({
   data: []
 })
 const options = ref([])
+const inputValue = ref("")
 
-const remoteMethod = (query) => {
+const remoteMethod = (e) => {
+  let query = e.target.value;
+  inputValue.value = query;
+
   if (query) {
     options.value = users.data.filter((item) => {
       return toLowerCaseNonAccentVietnamese(item.name).includes(toLowerCaseNonAccentVietnamese(query))
@@ -66,17 +83,10 @@ const remoteMethod = (query) => {
   }
 }
 
-function handleChange(user) {
-  // form.id = user.id;
-  // form.name = user.name;
-  // form.dob = user.dob;
-  // form.content = user.content;
-  // form.meet_at = user.meet_at;
-  // form.image = user.image;
-  pushData(user);
-}
-
 async function pushData(data) {
+  inputValue.value = "";
+  options.value = []
+  placeholder.value = `${data.name} -  ${ moment(data.dob).format('DD/MM/YYYY') }`;
   myChannel.trigger(event, JSON.stringify(data));
 }
 
@@ -102,9 +112,10 @@ onBeforeMount(async () => {
   outline: none !important;
   padding: 0 1rem;
   color: #fff;
-  animation: fadein 3s;
-  -webkit-animation: fadein 3s;
-  /* Safari and Chrome */
+  z-index: 3;
+  position: relative;
+  opacity: 0;
+  animation-fill-mode: forwards !important;
 }
 
 #name-input::placeholder {
@@ -112,8 +123,8 @@ onBeforeMount(async () => {
 }
 
 .app-logo {
-  animation: fadein 1.5s;
-  -webkit-animation: fadein 2s;
+  opacity: 0;
+  animation-fill-mode: forwards !important;
 }
 
 @keyframes fadein {
@@ -161,11 +172,61 @@ onBeforeMount(async () => {
 }
 
 #bg-video {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
+}
+
+.dropdown {
+  position: absolute;
+  left: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+  color: #fff;
+  width: 75%;
+  top: 45px;
+  z-index: 0;
+  border: 3px solid rgb(205, 172, 114);
+  border-top: none;
+  border-radius: 0 0 1rem 1rem;
+  max-height: 30vh;
+  overflow-y: scroll;
+}
+
+.dropdown .row-user {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.dropdown .row-user:hover {
+  background: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.dropdown .row-user:last-of-type {
+  border-radius: 0 0 1rem 1rem;
+}
+
+._1st {
+  animation: fadein 2s;
+}
+
+._2nd {
+  animation: fadein 2s;
+  animation-delay: 1s;
+}
+.fill-ele {
+  position: absolute;
+  width: 75%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 30px;
+  border: 3px solid rgb(205, 172, 114);
+  border-top: none;
+  border-bottom: none;
 }
 </style>

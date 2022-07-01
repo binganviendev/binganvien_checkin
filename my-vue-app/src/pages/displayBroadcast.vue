@@ -1,13 +1,13 @@
 <template>
   <div class="overflow-hidden w-100 h-100">
     <keep-alive v-if="isShowData.value">
-      <video autoplay muted loop id="bgg-video">
+      <video autoplay muted loop playsinline id="bgg-video">
         <source src="@/assets/tv_bg.mp4" type="video/mp4">
       </video>
     </keep-alive>
     <keep-alive v-else>
       <div>
-        <video autoplay muted loop id="bgg-video" class="left-0">
+        <video autoplay muted loop playsinline id="bgg-video" class="left-0">
           <source src="@/assets/free_play.mp4" type="video/mp4">
         </video>
         <QRCode class="qrcode position-absolute" />
