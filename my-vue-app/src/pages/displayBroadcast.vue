@@ -17,7 +17,7 @@
     <div class="position-absolute bgg-container overflow-hidden" v-if="isShowData.value">
       <div class="row w-100 h-100 p-3">
         <div class="col-6 h-100 ">
-          <img alt="logo" class="_1st w-200px mt-5 py-5 app-logo" src="@/assets/logo.png" />
+          <img alt="logo" class="_1st w-200px py-5 app-logo" src="@/assets/logo.png" />
           <h3 class="_1st">Họ và tên</h3>
           <h3 class="_1st text-content">{{ form.name }}</h3>
 
