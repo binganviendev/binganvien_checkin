@@ -22,16 +22,18 @@
           <h3 class="_1st text-content">{{ form.name }}</h3>
 
           <h3 class="_2nd">Ngày sinh</h3>
-          <h3 class="_2nd text-content mb-5 pb-5">{{ moment(form.dob).format('DD/MM/YYYY') }}</h3>
+          <h3 class="_2nd text-content">{{ moment(form.dob).format('DD/MM/YYYY') }}</h3>
+          <h3 class="_3rd">Giờ sinh</h3>
+          <h3 class="_3rd text-content mb-5 pb-5">{{ moment(form.hob).format('hh:mm') }}</h3>
 
-          <h3 class="_3rd mt-5">Lịch hẹn</h3>
-          <h3 class="_3rd text-content">{{ moment(form.meet_at).format('DD/MM/YYYY hh:mm') }}</h3>
+          <h3 class="_4th mt-5">Lịch hẹn</h3>
+          <h3 class="_4th text-content">{{ moment(form.meet_at).format('DD/MM/YYYY hh:mm') }}</h3>
 
-          <h3 class="_4th">Nội dung</h3>
-          <h3 class="_4th text-content">{{ form.content }}</h3>
+          <h3 class="_5th">Nội dung</h3>
+          <h3 class="_5th text-content">{{ form.content }}</h3>
         </div>
         <div class="col-6 h-100 middle-align">
-          <img class="_5th w-100 image-transition" :src="form.image" alt="">
+          <img class="_6th w-100 image-transition" :src="form.image" alt="">
         </div>
       </div>
     </div>
@@ -64,12 +66,13 @@ const form = reactive({
   id: '',
   name: '',
   dob: '',
+  hob: '',
   content: '',
   meet_at: '',
   image: '',
 })
 const isShowData = reactive({
-  value: false
+  value: true
 });
 let myInterval = setInterval(function () { isShowData.value = false }, 600*1000);
 
@@ -79,6 +82,7 @@ function handleChange(user) {
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
+  form.hob = user.hob;
   form.image = user.image.replace('open', 'uc');
   isShowData.value = false;
   isShowData.value = true;
@@ -149,8 +153,13 @@ h3 {
 }
 
 ._5th {
-  animation: fadeinImage 2s;
+  animation: fadein 2s;
   animation-delay: 4s;
+}
+
+._6th {
+  animation: fadeinImage 2s;
+  animation-delay: 5s;
 }
 
 

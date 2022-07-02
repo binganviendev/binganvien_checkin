@@ -90,9 +90,10 @@ const remoteMethod = (e) => {
 
   if (query) {
     options.value = users.data.filter((item) => {
-      return toLowerCaseNonAccentVietnamese(item.name).includes(
-        toLowerCaseNonAccentVietnamese(query)
-      );
+      const now = moment(); 
+      const conditions = toLowerCaseNonAccentVietnamese(item.name).includes(
+        toLowerCaseNonAccentVietnamese(query)) && moment(item.meet_at).isAfter(now);
+      return conditions;
     });
   } else {
     options.value = [];
