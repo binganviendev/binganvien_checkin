@@ -1,23 +1,35 @@
 <template>
   <div>
     <video id="bg-video" autoplay loop muted playsinline>
-      <source src="@/assets/video.mp4" type="video/mp4">
+      <source src="@/assets/video.mp4" type="video/mp4" />
     </video>
     <div class="position-absolute w-100">
-      <img alt="logo" class="_1st w-100px pt-4 app-logo" src="@/assets/logo.png" />
-      <div class="pt-2 text-center position-relative ">
-        <input type="text" name="city" :value="inputValue" @input="remoteMethod" id="name-input" class="_2nd w-75"
-          :placeholder="placeholder" />
+      <img
+        alt="logo"
+        class="_1st w-100px pt-4 app-logo"
+        src="@/assets/logo.png"
+      />
+      <div class="pt-2 text-center position-relative">
+        <div class="custom-input-group w-75">
+          <input
+            type="text"
+            name="city"
+            :value="inputValue"
+            @input="remoteMethod"
+            id="name-input"
+            class="_2nd w-100"
+            :placeholder="placeholder"
+          />
 
-        <div class="fill-ele" v-if="options.length">&nbsp;</div>
-        <div class="dropdown" v-if="options.length">
-          <div
-            @click="pushData(item)"
-            class="row-user"
-            v-for="item in options"
-            :key="item.id"
-          >
-            {{ item.name }} - {{ moment(item.dob).format('DD/MM/YYYY') }}
+          <div class="dropdown" v-if="options.length">
+            <div
+              @click="pushData(item)"
+              class="row-user"
+              v-for="item in options"
+              :key="item.id"
+            >
+              {{ item.name }} - {{ moment(item.dob).format("DD/MM/YYYY") }}
+            </div>
           </div>
         </div>
 
@@ -27,48 +39,50 @@
         <!--   <el-option v-for="item in options" :key="item.id" -->
         <!--     :label="`${item.name} - ${moment(item.dob).format('DD/MM/YYYY')}`" :value="item" /> -->
         <!-- </el-select> -->
-
       </div>
     </div>
-    <footer class="footer-rights m-auto">@ 2016 - {{ year }} Công ty TNHH Chế tác cao cấp Bỉ Ngạn Viên - All rights
-      reserved</footer>
+    <footer class="footer-rights m-auto">
+      @ 2016 - {{ year }} Công ty TNHH Chế tác cao cấp Bỉ Ngạn Viên - All rights
+      reserved
+    </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onBeforeMount, watch } from 'vue'
-import { fetchUsers } from '@/plugins/spreadsheet';
-import { toLowerCaseNonAccentVietnamese } from '@/plugins/common';
+import { ref, reactive, onBeforeMount, watch } from "vue";
+import { fetchUsers } from "@/plugins/spreadsheet";
+import { toLowerCaseNonAccentVietnamese } from "@/plugins/common";
 import moment from "moment";
-import Pusher from 'pusher-js';
+import Pusher from "pusher-js";
 
 Pusher.logToConsole = true;
-const pusherKey = 'ded5041fb98b0734a8cf';
-const channel = 'private-binganvien';
-const event = 'client-broadcast';
+const pusherKey = "ded5041fb98b0734a8cf";
+const channel = "private-binganvien";
+const event = "client-broadcast";
 
 var pusher = new Pusher(pusherKey, {
-  cluster: 'ap1',
+  cluster: "ap1",
   channelAuthorization: {
     endpoint: "api/pusher-auth",
-  }
+  },
 });
 const myChannel = pusher.subscribe(channel);
 
 // do not use same name with ref
 const form = reactive({
-  id: '',
-  name: '',
-  dob: '',
-  content: '',
-  meet_at: '',
-  image: '',
-})
-const placeholder = ref("Xin mời Quý khách nhập họ và tên"); const users = reactive({
-  data: []
-})
-const options = ref([])
-const inputValue = ref("")
+  id: "",
+  name: "",
+  dob: "",
+  content: "",
+  meet_at: "",
+  image: "",
+});
+const placeholder = ref("Xin mời Quý khách nhập họ và tên");
+const users = reactive({
+  data: [],
+});
+const options = ref([]);
+const inputValue = ref("");
 
 const remoteMethod = (e) => {
   let query = e.target.value;
@@ -76,23 +90,27 @@ const remoteMethod = (e) => {
 
   if (query) {
     options.value = users.data.filter((item) => {
-      return toLowerCaseNonAccentVietnamese(item.name).includes(toLowerCaseNonAccentVietnamese(query))
-    })
+      return toLowerCaseNonAccentVietnamese(item.name).includes(
+        toLowerCaseNonAccentVietnamese(query)
+      );
+    });
   } else {
-    options.value = []
+    options.value = [];
   }
-}
+};
 
 async function pushData(data) {
   inputValue.value = "";
-  options.value = []
-  placeholder.value = `${data.name} -  ${ moment(data.dob).format('DD/MM/YYYY') }`;
+  options.value = [];
+  placeholder.value = `${data.name} -  ${moment(data.dob).format(
+    "DD/MM/YYYY"
+  )}`;
   myChannel.trigger(event, JSON.stringify(data));
 }
 
 onBeforeMount(async () => {
   users.data = await fetchUsers();
-})
+});
 </script>
 <style>
 * {
@@ -108,7 +126,7 @@ onBeforeMount(async () => {
   height: 40px;
   background-color: transparent;
   border-radius: 2rem;
-  border: 3px solid rgb(205, 172, 114) !important;
+  border: none;
   outline: none !important;
   padding: 0 1rem;
   color: #fff;
@@ -138,7 +156,6 @@ onBeforeMount(async () => {
 }
 
 @-webkit-keyframes fadein {
-
   /* Safari and Chrome */
   from {
     opacity: 0;
@@ -181,16 +198,12 @@ onBeforeMount(async () => {
 }
 
 .dropdown {
-  position: absolute;
   left: 0;
-  margin: auto;
   left: 0;
   right: 0;
   color: #fff;
-  width: 75%;
-  top: 45px;
+  width: 100%;
   z-index: 0;
-  border: 3px solid rgb(205, 172, 114);
   border-top: none;
   border-radius: 0 0 1rem 1rem;
   max-height: 30vh;
@@ -199,6 +212,8 @@ onBeforeMount(async () => {
 
 .dropdown .row-user {
   background: rgba(0, 0, 0, 0.4);
+  text-align: left;
+  padding-left: 1rem;
 }
 
 .dropdown .row-user:hover {
@@ -228,5 +243,15 @@ onBeforeMount(async () => {
   border: 3px solid rgb(205, 172, 114);
   border-top: none;
   border-bottom: none;
+}
+.custom-input-group {
+  position: absolute;
+  width: 75%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 30px;
+  border-radius: 1rem;
+  border: 3px solid rgb(205, 172, 114);
 }
 </style>

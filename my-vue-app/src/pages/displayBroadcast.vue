@@ -8,7 +8,7 @@
     <keep-alive v-else>
       <div>
         <video autoplay muted loop playsinline id="bgg-video" class="left-0">
-          <source src="@/assets/free_play.mp4" type="video/mp4">
+          <source src="@/assets/da.mp4" type="video/mp4">
         </video>
         <QRCode class="qrcode position-absolute" />
       </div>
