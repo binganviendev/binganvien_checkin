@@ -24,7 +24,7 @@
           <h3 class="_2nd">Ngày sinh</h3>
           <h3 class="_2nd text-content">{{ moment(form.dob).format('DD/MM/YYYY') }}</h3>
           <h3 class="_3rd">Giờ sinh</h3>
-          <h3 class="_3rd text-content mb-5 pb-5">{{ moment(form.hob).format('hh:mm') }}</h3>
+          <h3 class="_3rd text-content mb-5 pb-5">{{ form.hob }}</h3>
 
           <h3 class="_4th mt-5">Lịch hẹn</h3>
           <h3 class="_4th text-content">{{ moment(form.meet_at).format('DD/MM/YYYY hh:mm') }}</h3>
@@ -82,7 +82,7 @@ function handleChange(user) {
   form.dob = user.dob;
   form.content = user.content;
   form.meet_at = user.meet_at;
-  form.hob = user.hob;
+  form.hob = user.hob.substr(0,5);
   form.image = user.image.replace('open', 'uc');
   isShowData.value = false;
   isShowData.value = true;
