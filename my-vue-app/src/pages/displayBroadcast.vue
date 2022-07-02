@@ -71,7 +71,7 @@ const form = reactive({
 const isShowData = reactive({
   value: false
 });
-let myInterval = setInterval(function () { isShowData.value = false }, 60*1000);
+let myInterval = setInterval(function () { isShowData.value = false }, 600*1000);
 
 function handleChange(user) {
   form.id = user.id;
@@ -85,7 +85,7 @@ function handleChange(user) {
 
   // Reset interval
   clearInterval(myInterval);
-  myInterval = setInterval(function () { isShowData.value = false }, 60*1000);
+  myInterval = setInterval(function () { isShowData.value = false }, 600*1000);
 }
 
 </script>
