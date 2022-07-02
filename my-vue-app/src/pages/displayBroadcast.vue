@@ -72,7 +72,7 @@ const form = reactive({
   image: '',
 })
 const isShowData = reactive({
-  value: true
+  value: false
 });
 let myInterval = setInterval(function () { isShowData.value = false }, 600*1000);
 
